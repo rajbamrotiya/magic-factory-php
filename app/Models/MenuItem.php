@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class MenuItem extends Model
 {
 
+    protected $fillable = [
+        'api_name', 'local_name', 'parent_id'
+    ];
+
     protected $appends = [
         'name'
     ];
@@ -42,6 +46,14 @@ class MenuItem extends Model
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id');
+    }
+
+    public static function addEditFromCmd($name, $parentId = 0)
+    {
+        $record = self::firstOrNew(['api_name' => $name]);
+        $record->parent_id = $parentId;
+        $record->save();
+        return $record->id;
     }
 
 }
