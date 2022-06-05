@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
+            $table->string('local_name')->nullable();
+            $table->string('api_name');
+            $table->unsignedBigInteger('parent_id')->default(0);
             $table->timestamps();
         });
     }
