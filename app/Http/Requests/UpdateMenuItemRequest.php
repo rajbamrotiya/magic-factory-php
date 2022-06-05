@@ -13,7 +13,7 @@ class UpdateMenuItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class UpdateMenuItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'local_name' => 'required|string|max:255'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'local_name' => 'Name',
         ];
     }
 }
